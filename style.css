@@ -15,3 +15,30 @@ footer {
     margin-top: 20px;
     padding-top: 20px;
 }
+
+.ns .ns-hide {
+    display: none;
+}
+
+.repo-name {
+    padding-left: 0.5em;
+}
+
+.repo-action {
+    padding-left: .5em;
+    display: inline;
+    margin: 0;
+}
+
+.repo-action li {
+    display: inline;
+}
+
+.repo-action li:not(:first-child)::before {
+    content: "| ";
+}
+
+.commit-msg {
+    white-space: pre;
+    margin: 0;
+}

@@ -8,12 +8,8 @@
     <meta content="width=device-width,initial-scale=1" name=viewport>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-    <script src="./script.js"></script>
 </head>
-<body>
+<body class="ns">
     
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
@@ -36,6 +32,7 @@
         <li><a href="#download">Download</a></li>
         <li><a href="#assessment">Assessment</a></li>
         <li><a href="#team">Team</a></li>
+        <li><a href="#repos">Repo Status</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container -->
@@ -48,7 +45,7 @@
         </div>
 
         <div class="page-header" id="gallery">
-            <h1>Game Gallery</h1>
+            <h1><i class="glyphicon glyphicon-picture"></i> Game Gallery</h1>
         </div>
 
         <section>
@@ -69,7 +66,7 @@
         </section>
 
         <div class="page-header" id="download">
-            <h1>Downloads</h1>
+            <h1><i class="glyphicon glyphicon-download-alt"></i> Downloads</h1>
         </div>
 
         <section>
@@ -79,7 +76,7 @@
         </section>
 
         <div class="page-header" id="assessment">
-            <h1>Assessment Documents</h1>
+            <h1><i class="glyphicon glyphicon-file"></i> Assessment Documents</h1>
         </div>
 
         <section>
@@ -96,12 +93,50 @@
         </section>
 
         <div class="page-header" id="team">
-            <h1>The Team: Fractal</h1>
+            <h1><i class="glyphicon glyphicon-star"></i> The Team: Fractal</h1>
         </div>
 
         <section>
             <p>Fractals, like video games, can be considered a combination of Art, Maths and Computer Science. This makes them very appropriate for the basis of our team.</p>
             <p>Fractals start off simple and gets more and more complex over time until something very intricate and aesthetically pleasing is made. We hope our project parallels this idea, starting off with simple but concrete design ideas, which over the course of many iterations transform into an immersive gaming experience.</p>
+        </section>
+        
+        <div class="page-header" id="repos">
+            <h1><i class="glyphicon glyphicon-sunglasses"></i> Repo Status</h1>
+        </div>
+
+        <section>
+            <p>Here is a list of repository created by the Team Fractal.</p>
+            <noscript><p>You need to enable JavaScript and then <a href="/">reload this page</a>, or view it on the <a href="https://github.com/TeamFractal/" target="_blank">GitHub</a>.</p></noscript>
+            <div id="commit_render" class="ns-hide">
+                <div v-if="current != total">Loading repo data (
+                    <span v-text="current">0</span> / <span v-text="total">-</span>
+                    )...
+                </div>
+
+                <div v-for="repo in repos">
+                    <h2><i class="glyphicon glyphicon-folder-open"></i> <span class="repo-name" v-text="repo.name"></span>
+                        <small>
+                            <ul class="repo-action">
+                                <li><a v-bind:href="repo.html_url" target="_blank">repo</a></li>
+                                <li v-text="repo.language"></li>
+                            </ul>
+                        </small>
+                    </h2>
+                    <blockquote>{{ repo.description }}</blockquote>
+
+                    <h3><i class="glyphicon glyphicon-pushpin"></i> Latest 3 commits</h3>
+                    <div class="list-group">
+                        <div v-for="commit in repo.commits" class="list-group-item">
+                            <p><i class="glyphicon glyphicon-tag"></i>
+                                <a v-bind:href="commit.html_url" target="_blank"><code>#{{ commit.ssha }}</code></a>
+                                by <a v-bind:href="commit.author.html_url" target="_blank">{{ commit.commit.author.name }}</a>
+                            </p>
+                            <p class="commit-msg">{{ commit.commit.message }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -110,5 +145,10 @@
             &copy; Team Fractal, 2016.
         </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+    <script src="./app.js" async defer></script>
 </body>
 </html>
