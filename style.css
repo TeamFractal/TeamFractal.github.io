@@ -39,6 +39,6 @@ footer {
 }
 
 .commit-msg {
-    white-space: pre;
+    white-space: pre-wrap;
     margin: 0;
 }
