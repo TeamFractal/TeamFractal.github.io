@@ -133,7 +133,7 @@
                             </ul>
                         </small>
                     </h2>
-                    <blockquote>{{ repo.description }}</blockquote>
+                    <blockquote v-if="repo.description">{{ repo.description }}</blockquote>
 
                     <h3><i class="glyphicon glyphicon-pushpin"></i> Latest 3 commits</h3>
                     <div class="list-group">
