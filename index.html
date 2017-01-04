@@ -75,7 +75,7 @@
 
         <section>
             <ul>
-                <li><a href="">Version 0.0</a> <small>Updated: <time>20/10/2016</time></small></li>
+                <li><a href="">Version 0.0</a> <small>Updated: <time>--/--/2017</time></small></li>
             </ul>
         </section>
 
@@ -94,11 +94,11 @@
                   <li><a href="/assessment1/Risk1.pdf">Risk assessment and mitigation</a></li>
                 </ul>
                 <li><a href="/assessment2.zip">Assessment 2</a>
-                <br/> <small>Updated: <time>20/10/2016</time></small></li>
+                <br/> <small>Updated: <time>--/--/2017</time></small></li>
                 <li><a href="/assessment3.zip">Assessment 3</a>
-                <br/> <small>Updated: <time>20/10/2016</time></small></li>
+                <br/> <small>Updated: <time>--/--/2017</time></small></li>
                 <li><a href="/assessment4.zip">Assessment 4</a>
-                <br/> <small>Updated: <time>20/10/2016</time></small></li>
+                <br/> <small>Updated: <time>--/--/2017</time></small></li>
             </ul>
         </section>
 
@@ -122,18 +122,12 @@
                 <div v-if="error" class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error:</span>
-                    Failed to fetch latest repo information from GitHub, please visit 
-                    <a href="https://github.com/TeamFractal/">our github page</a>
-                    for all repositories we created.
+                    Failed to fetch latest repo data from GitHub API.
                 </div>
 
-                <div v-if="current != total" class="alert alert-info" role="alert">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Info:</span>
-
-                    Loading repo data (
+                <div v-if="current != total">Loading repo data (
                     <span v-text="current">0</span> / <span v-text="total">-</span>
-                    ) ...
+                    )...
                 </div>
 
                 <div v-for="repo in repos">
@@ -148,14 +142,6 @@
                     <blockquote v-if="repo.description">{{ repo.description }}</blockquote>
 
                     <h3><i class="glyphicon glyphicon-pushpin"></i> Latest 3 commits</h3>
-                    <div v-if="repo.error" class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        Failed to fetch latest commits, please visit
-                        <a v-bind:href="repo.html_url" target="_blank" v-bind:title="repo.name">github repo</a>
-                        for latest commits.
-                    </div>
-
                     <div class="list-group">
                         <div v-for="commit in repo.commits" class="list-group-item">
                             <p><i class="glyphicon glyphicon-tag"></i>
