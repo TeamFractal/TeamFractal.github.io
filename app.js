@@ -1,10 +1,12 @@
 $(function() {
 	document.body.classList.remove('ns');
-	var baseGithubUrl = window.baseGithubUrl || 'https://api.github.com'; 
+	// var baseGithubUrl = window.baseGithubUrl || 'https://api.github.com'; 
+	// var baseGithubUrl = window.baseGithubUrl || 'http://localhost/api_test/?url=';
+	// Use less restricted api.
+	var baseGithubUrl = window.baseGithubUrl || 'https://gh-api.jixun.moe/api?url=';
 
 	function getGithub (url, data) {
 		return $.ajax({
-			// url: 'http://localhost/api_test/?url=' + url,
 			url: baseGithubUrl + url,
 			jsonp: 'callback',
 			dataType: 'jsonp',
@@ -72,24 +74,45 @@ $(function() {
 		el: '#commit_render',
 		data: {
 			current: 0,
-			total: 0,
-			repos: []
+			total: 1,
+			repos: [],
+			error: false
 		}
 	});
 	window.app = app;
 	getGithub('/orgs/TeamFractal/repos').done(function (res) {
-		// /repos/TeamFractal/TeamFractal.github.io/commits
+		if (!res.data || res.data.length == 0) {
+			app.error = true;
+			return ;
+		}
+
+		app.total = res.data.length;
+
 		res.data.forEach(function (repo) {
+			repo.error = false;
 			repo.commits = [];
 			app.repos.push (repo);
 
 			getGithub('/repos/' + repo.full_name + '/commits').done(function (res) {
-				// app.$set(repo.commits, res.data);
+				app.current ++;
+				
+				if (!res.data || res.data.length == 0) {
+					repo.error = true;
+					return ;
+				}
+
 				res.data.slice(0, 3).forEach(function (commit) {
 					commit.ssha = commit.sha.slice(0, 8);
+					if (!commit.author) {
+						commit.author = commit.commit.author;
+					}
 					repo.commits.push(commit);
 				});
+			}).fail(function () {
+				repo.error = true;
 			});
 		});
+	}).fail(function () {
+		app.error = true;
 	});
 });

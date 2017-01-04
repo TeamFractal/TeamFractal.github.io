@@ -119,9 +119,21 @@
             <p>Here is a list of repository created by the Team Fractal.</p>
             <noscript><p>You need to enable JavaScript and then <a href="/">reload this page</a>, or view it on the <a href="https://github.com/TeamFractal/" target="_blank">GitHub</a>.</p></noscript>
             <div id="commit_render" class="ns-hide">
-                <div v-if="current != total">Loading repo data (
+                <div v-if="error" class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Failed to fetch latest repo information from GitHub, please visit 
+                    <a href="https://github.com/TeamFractal/">our github page</a>
+                    for all repositories we created.
+                </div>
+
+                <div v-if="current != total" class="alert alert-info" role="alert">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Info:</span>
+
+                    Loading repo data (
                     <span v-text="current">0</span> / <span v-text="total">-</span>
-                    )...
+                    ) ...
                 </div>
 
                 <div v-for="repo in repos">
@@ -136,11 +148,27 @@
                     <blockquote v-if="repo.description">{{ repo.description }}</blockquote>
 
                     <h3><i class="glyphicon glyphicon-pushpin"></i> Latest 3 commits</h3>
+                    <div v-if="repo.error" class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        Failed to fetch latest commits, please visit
+                        <a v-bind:href="repo.html_url" target="_blank" v-bind:title="repo.name">github repo</a>
+                        for latest commits.
+                    </div>
+
                     <div class="list-group">
                         <div v-for="commit in repo.commits" class="list-group-item">
                             <p><i class="glyphicon glyphicon-tag"></i>
                                 <a v-bind:href="commit.html_url" target="_blank"><code>#{{ commit.ssha }}</code></a>
-                                by <a v-bind:href="commit.author.html_url" target="_blank">{{ commit.commit.author.name }}</a>
+                                by
+                                
+                                <span v-if="commit.author.html_url">
+                                    <a v-bind:href="commit.author.html_url" target="_blank">{{ commit.commit.author.name }}</a>
+                                </span>
+                                
+                                <span v-else>{{ commit.author.name }}
+                                    &lt;<a v-bind:href="'mailto:' + commit.author.email">{{ commit.author.email }}</a>&gt;
+                                </span>
                             </p>
                             <p class="commit-msg">{{ commit.commit.message }}</p>
                         </div>
