@@ -42,3 +42,8 @@ footer {
     white-space: pre-wrap;
     margin: 0;
 }
+
+.gallery img {
+    max-height: 180px;
+    max-width: 220px;
+}
