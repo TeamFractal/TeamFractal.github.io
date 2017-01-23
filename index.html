@@ -91,6 +91,9 @@
                 </ul>
                 <li><a href="/assessment2.zip">Assessment 2</a>
                 <br/> <small>Updated: <time>--/--/2017</time></small></li>
+                <ul>
+                  <li><a href="/assessment2/GUI2.pdf">GUI Report</a></li>
+                </ul>
                 <li><a href="/assessment3.zip">Assessment 3</a>
                 <br/> <small>Updated: <time>--/--/2017</time></small></li>
                 <li><a href="/assessment4.zip">Assessment 4</a>
@@ -143,11 +146,11 @@
                             <p><i class="glyphicon glyphicon-tag"></i>
                                 <a v-bind:href="commit.html_url" target="_blank"><code>#{{ commit.ssha }}</code></a>
                                 by
-                                
+
                                 <span v-if="commit.author.html_url">
                                     <a v-bind:href="commit.author.html_url" target="_blank">{{ commit.commit.author.name }}</a>
                                 </span>
-                                
+
                                 <span v-else>{{ commit.author.name }}
                                     &lt;<a v-bind:href="'mailto:' + commit.author.email">{{ commit.author.email }}</a>&gt;
                                 </span>
