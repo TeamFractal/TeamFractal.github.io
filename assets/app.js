@@ -89,7 +89,7 @@ $(function() {
 		app.total = res.data.length;
 		
 		res.data.forEach(function (repo) {
-			repo.hidden = exclude.indexOf(repo.full_name) == -1;
+			repo.hidden = exclude.indexOf(repo.full_name) !== -1;
 			repo.error = false;
 			repo.commits = [];
 			app.repos.push (repo);

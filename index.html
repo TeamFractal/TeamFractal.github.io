@@ -192,6 +192,8 @@
                     </h2>
                     <blockquote v-if="repo.description">{{ repo.description }}</blockquote>
 
+                    <div class="alert alert-info" role="alert" v-if="repo.hidden"><b>Warning!</b> This is a <i>deprecated</i> repo for our old code.</div>
+
                     <h3><i class="glyphicon glyphicon-pushpin"></i> Latest 3 commits</h3>
                     <div class="list-group">
                         <div v-for="commit in repo.commits" class="list-group-item">
