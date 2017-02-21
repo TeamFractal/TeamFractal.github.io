@@ -79,7 +79,7 @@ $(function() {
 			error: false
 		}
 	});
-	window.app = app;
+	var exclude = ['TeamFractal/Roboticon-Quest'];
 	getGithub('/orgs/TeamFractal/repos').done(function (res) {
 		if (!res.data || res.data.length == 0) {
 			app.error = true;
@@ -87,8 +87,9 @@ $(function() {
 		}
 
 		app.total = res.data.length;
-
+		
 		res.data.forEach(function (repo) {
+			repo.hidden = exclude.indexOf(repo.full_name) == -1;
 			repo.error = false;
 			repo.commits = [];
 			app.repos.push (repo);
@@ -109,6 +110,7 @@ $(function() {
 					repo.commits.push(commit);
 				});
 			}).fail(function () {
+				app.current ++;
 				repo.error = true;
 			});
 		});
