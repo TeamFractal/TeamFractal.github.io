@@ -81,7 +81,7 @@ $(function() {
 	});
 	var exclude = ['TeamFractal/Roboticon-Quest'];
 	getGithub('/orgs/TeamFractal/repos').done(function (res) {
-		if (!res.data || res.data.length == 0) {
+		if (!res.data || res.data.length === 0) {
 			app.error = true;
 			return ;
 		}
@@ -97,7 +97,7 @@ $(function() {
 			getGithub('/repos/' + repo.full_name + '/commits').done(function (res) {
 				app.current ++;
 				
-				if (!res.data || res.data.length == 0) {
+				if (!res.data || res.data.length === 0) {
 					repo.error = true;
 					return ;
 				}
