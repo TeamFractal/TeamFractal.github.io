@@ -79,7 +79,7 @@ $(function() {
 			error: false
 		}
 	});
-	var exclude = ['TeamFractal/Roboticon-Quest'];
+	var exclude = ['TeamFractal/Roboticon-Quest', 'TeamFractal/DRTN-SEPR'];
 	getGithub('/orgs/TeamFractal/repos').done(function (res) {
 		if (!res.data || res.data.length === 0) {
 			app.error = true;
